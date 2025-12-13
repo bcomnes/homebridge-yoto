@@ -54,7 +54,7 @@ npm install homebridge-yoto
 ### Initial Setup
 
 1. **Install the plugin** using one of the methods above
-2. **Start Homebridge** - the plugin will automatically initiate OAuth flow
+2. **Start Homebridge** - the plugin will automatically initiate OAuth flow (uses default OAuth client ID)
 3. **Check the logs** for authentication instructions:
    ```
    [Yoto] ============================================================
@@ -81,6 +81,7 @@ The plugin can be configured through the Homebridge Config UI or by editing `con
 {
   "platform": "Yoto",
   "name": "Yoto",
+  "clientId": "Y4HJ8BFqRQ24GQoLzgOzZ2KSqWmFG8LI",
   "mqttBroker": "mqtt://mqtt.yotoplay.com:1883",
   "statusTimeoutSeconds": 120,
   "exposeTemperature": true,
@@ -105,6 +106,7 @@ The plugin can be configured through the Homebridge Config UI or by editing `con
 |-------|------|---------|-------------|
 | `platform` | string | `"Yoto"` | **Required** - Must be "Yoto" |
 | `name` | string | `"Yoto"` | Platform name in Homebridge logs |
+| `clientId` | string | `Y4HJ8BFqRQ24GQoLzgOzZ2KSqWmFG8LI` | OAuth client ID (default works for most users) |
 | `accessToken` | string | - | OAuth access token (managed automatically) |
 | `refreshToken` | string | - | OAuth refresh token (managed automatically) |
 | `tokenExpiresAt` | number | - | Token expiration timestamp (managed automatically) |
@@ -123,6 +125,13 @@ The plugin can be configured through the Homebridge Config UI or by editing `con
 | `exposeAdvancedControls` | boolean | `false` | Add switches for Bluetooth, Repeat, etc. |
 | `volumeControlType` | string | `"speaker"` | Service type for volume (`"speaker"`, `"fan"`, or `"lightbulb"`) |
 | `debug` | boolean | `false` | Enable verbose debug logging |
+
+**Note on Client ID:** The default client ID (`Y4HJ8BFqRQ24GQoLzgOzZ2KSqWmFG8LI`) is a public OAuth application that works for all users. You only need to change this if:
+- You want to use your own OAuth application
+- You're experiencing rate limiting issues
+- You need custom OAuth settings
+
+To create your own OAuth app, visit [yoto.dev](https://yoto.dev).
 
 ## HomeKit Services
 
@@ -215,6 +224,14 @@ Each Yoto player is exposed as a HomeKit accessory with the following services:
 2. Ensure the code hasn't expired (5 minute timeout)
 3. Try restarting Homebridge to generate a new code
 4. Check your internet connection
+5. Verify the client ID is correct (default: `Y4HJ8BFqRQ24GQoLzgOzZ2KSqWmFG8LI`)
+
+**Problem:** "Invalid client" or "Client not found" errors
+
+**Solution:**
+1. Ensure you haven't changed the `clientId` field in config
+2. If using a custom client ID, verify it's correct at yoto.dev
+3. Try removing the `clientId` field to use the default
 
 ### MQTT Connection Issues
 

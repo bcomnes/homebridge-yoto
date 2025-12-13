@@ -17,8 +17,9 @@
       "clientId": {
         "title": "OAuth Client ID",
         "type": "string",
+        "default": "Y4HJ8BFqRQ24GQoLzgOzZ2KSqWmFG8LI",
         "required": false,
-        "description": "OAuth client ID (auto-generated if not provided)"
+        "description": "OAuth client ID for Yoto API authentication. Default works for most users. Create your own OAuth app at yoto.dev if needed."
       },
       "accessToken": {
         "title": "Access Token",
@@ -176,7 +177,7 @@
       "items": [
         {
           "type": "help",
-          "helpvalue": "<p><strong>OAuth Setup Instructions:</strong></p><ol><li>Start Homebridge - the plugin will initiate OAuth flow automatically if no tokens are present</li><li>Check Homebridge logs for the verification URL and user code</li><li>Visit the URL and enter the code to authorize the plugin</li><li>After authorization, the tokens will be saved automatically</li><li>Restart Homebridge to apply the changes</li></ol><p><em>Note: These fields are managed automatically and should not be edited manually unless troubleshooting.</em></p>"
+          "helpvalue": "<p><strong>OAuth Setup Instructions:</strong></p><ol><li>Start Homebridge - the plugin will initiate OAuth flow automatically if no tokens are present</li><li>Check Homebridge logs for the verification URL and user code</li><li>Visit the URL and enter the code to authorize the plugin</li><li>After authorization, the tokens will be saved automatically</li><li>Restart Homebridge to apply the changes</li></ol><p><strong>Client ID:</strong> The default client ID works for most users. Only change if you've created your own OAuth app at yoto.dev or experiencing rate limiting.</p><p><em>Note: Token fields are managed automatically and should not be edited manually unless troubleshooting.</em></p>"
         },
         "clientId",
         "accessToken",
