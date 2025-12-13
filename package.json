@@ -26,7 +26,10 @@
     "npm": ">=10"
   },
   "homepage": "https://github.com/bcomnes/homebridge-yoto",
-  "keywords": [],
+  "keywords": [
+    "homebridge-plugin",
+    "yoto"
+  ],
   "license": "MIT",
   "type": "module",
   "module": "index.js",

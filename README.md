@@ -7,6 +7,8 @@
 [![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-7fffff?style=flat&labelColor=ff80ff)](https://github.com/neostandard/neostandard)
 [![Socket Badge](https://socket.dev/api/badge/npm/package/homebridge-yoto)](https://socket.dev/npm/package/homebridge-yoto)
 
+THIS PLUGIN IS A WIP. DO NOT USE YET.
+
 > Control your Yoto players through Apple HomeKit
 
 A Homebridge plugin that integrates Yoto audio players with Apple HomeKit, providing real-time control over playback, volume, and device status through MQTT.
