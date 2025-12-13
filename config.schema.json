@@ -7,13 +7,6 @@
   "schema": {
     "type": "object",
     "properties": {
-      "name": {
-        "title": "Platform Name",
-        "type": "string",
-        "default": "Yoto",
-        "required": true,
-        "description": "The name of the platform as it appears in Homebridge logs"
-      },
       "clientId": {
         "title": "OAuth Client ID",
         "type": "string",
@@ -39,13 +32,7 @@
         "required": false,
         "description": "Token expiration timestamp (managed automatically)"
       },
-      "mqttBroker": {
-        "title": "MQTT Broker URL",
-        "type": "string",
-        "default": "mqtt://mqtt.yotoplay.com:1883",
-        "required": false,
-        "description": "MQTT broker URL for real-time device communication"
-      },
+
       "statusTimeoutSeconds": {
         "title": "Status Timeout (seconds)",
         "type": "number",
@@ -165,12 +152,6 @@
   "layout": [
     {
       "type": "section",
-      "title": "Platform Configuration",
-      "expandable": false,
-      "items": ["name"]
-    },
-    {
-      "type": "section",
       "title": "Authentication",
       "expandable": true,
       "expanded": false,
@@ -190,7 +171,7 @@
       "title": "MQTT Configuration",
       "expandable": true,
       "expanded": false,
-      "items": ["mqttBroker", "statusTimeoutSeconds"]
+      "items": ["statusTimeoutSeconds"]
     },
     {
       "type": "section",
