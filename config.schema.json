@@ -1,0 +1,68 @@
+{
+  "pluginAlias": "Yoto",
+  "pluginType": "platform",
+  "singular": true,
+  "customUi": true,
+  "childBridgePlatform": false,
+  "headerDisplay": "**Homebridge Yoto Plugin** - Control your Yoto players through HomeKit",
+  "footerDisplay": "For help and documentation, visit the [GitHub repository](https://github.com/bcomnes/homebridge-yoto)",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "clientId": {
+        "title": "OAuth Client ID",
+        "type": "string",
+        "default": "Y4HJ8BFqRQ24GQoLzgOzZ2KSqWmFG8LI",
+        "required": false,
+        "description": "OAuth client ID for Yoto API authentication. The default works for most users. Only change if you've created your own OAuth app at yoto.dev.",
+        "x-schema-form": {
+          "hidden": false
+        }
+      },
+      "accessToken": {
+        "title": "Access Token",
+        "type": "string",
+        "required": false,
+        "description": "Automatically managed by the authentication flow. Do not edit manually.",
+        "x-schema-form": {
+          "type": "password"
+        }
+      },
+      "refreshToken": {
+        "title": "Refresh Token",
+        "type": "string",
+        "required": false,
+        "description": "Automatically managed by the authentication flow. Do not edit manually.",
+        "x-schema-form": {
+          "type": "password"
+        }
+      },
+      "tokenExpiresAt": {
+        "title": "Token Expiration",
+        "type": "number",
+        "required": false,
+        "description": "Automatically managed by the authentication flow. Do not edit manually.",
+        "x-schema-form": {
+          "hidden": true
+        }
+      }
+    }
+  },
+  "layout": [
+    {
+      "type": "section",
+      "title": "Authentication",
+      "expandable": true,
+      "expanded": false,
+      "items": [
+        {
+          "type": "help",
+          "helpvalue": "<p><strong>Authentication Instructions:</strong></p><ol><li>Click the <strong>\"Start Authentication\"</strong> button in the custom UI above</li><li>Follow the on-screen instructions to authorize with your Yoto account</li><li>Tokens will be saved automatically when authorization completes</li><li>Homebridge will restart and connect to your devices</li></ol><p><strong>Advanced:</strong> The default OAuth Client ID works for all users. The token fields below are automatically managed by the plugin and should not be edited manually.</p>"
+        },
+        "clientId",
+        "accessToken",
+        "refreshToken"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "name": "homebridge-yoto",
+  "description": "Control your Yoto players through Apple HomeKit with real-time MQTT updates",
+  "version": "0.0.29",
+  "author": "Bret Comnes <bcomnes@gmail.com> (https://bret.io)",
+  "bugs": {
+    "url": "https://github.com/bcomnes/homebridge-yoto/issues"
+  },
+  "dependencies": {
+    "@homebridge/plugin-ui-utils": "^2.1.2",
+    "yoto-nodejs-client": "^0.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.0",
+    "@voxpelli/tsconfig": "^16.1.0",
+    "auto-changelog": "^2.0.0",
+    "c8": "^10.0.0",
+    "eslint": "^9.39.2",
+    "gh-release": "^7.0.0",
+    "homebridge": "^2.0.0-beta.66",
+    "neostandard": "^0.12.0",
+    "npm-run-all2": "^8.0.1",
+    "typescript": "~5.9.3"
+  },
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10",
+    "homebridge": "^1.8.0 || ^2.0.0-beta.0"
+  },
+  "homepage": "https://github.com/bcomnes/homebridge-yoto",
+  "keywords": [
+    "homebridge-plugin",
+    "yoto"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "module": "index.js",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bcomnes/homebridge-yoto.git"
+  },
+  "scripts": {
+    "prepublishOnly": "git push --follow-tags && gh-release -y",
+    "postpublish": "npm run clean",
+    "test": "run-s test:*",
+    "test:lint": "eslint",
+    "test:tsc": "tsc",
+    "test:node-test": "c8 node --test --test-reporter spec",
+    "version": "run-s version:*",
+    "version:changelog": "auto-changelog -p --template keepachangelog auto-changelog --breaking-pattern 'BREAKING CHANGE:'",
+    "version:git": "git add CHANGELOG.md"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/bcomnes"
+  },
+  "c8": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
+  }
+}
