@@ -1,0 +1,221 @@
+{
+  "pluginAlias": "Yoto",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "**Homebridge Yoto Plugin** - Control your Yoto players through HomeKit",
+  "footerDisplay": "For help and documentation, visit the [GitHub repository](https://github.com/bcomnes/homebridge-yoto)",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Platform Name",
+        "type": "string",
+        "default": "Yoto",
+        "required": true,
+        "description": "The name of the platform as it appears in Homebridge logs"
+      },
+      "clientId": {
+        "title": "OAuth Client ID",
+        "type": "string",
+        "required": false,
+        "description": "OAuth client ID (auto-generated if not provided)"
+      },
+      "accessToken": {
+        "title": "Access Token",
+        "type": "string",
+        "required": false,
+        "description": "Stored access token (managed automatically after OAuth)"
+      },
+      "refreshToken": {
+        "title": "Refresh Token",
+        "type": "string",
+        "required": false,
+        "description": "Stored refresh token (managed automatically after OAuth)"
+      },
+      "tokenExpiresAt": {
+        "title": "Token Expiration",
+        "type": "number",
+        "required": false,
+        "description": "Token expiration timestamp (managed automatically)"
+      },
+      "mqttBroker": {
+        "title": "MQTT Broker URL",
+        "type": "string",
+        "default": "mqtt://mqtt.yotoplay.com:1883",
+        "required": false,
+        "description": "MQTT broker URL for real-time device communication"
+      },
+      "statusTimeoutSeconds": {
+        "title": "Status Timeout (seconds)",
+        "type": "number",
+        "default": 120,
+        "minimum": 60,
+        "maximum": 300,
+        "required": false,
+        "description": "Seconds without MQTT updates before marking device offline"
+      },
+      "exposeTemperature": {
+        "title": "Expose Temperature Sensor",
+        "type": "boolean",
+        "default": true,
+        "required": false,
+        "description": "Add temperature sensor service to each device"
+      },
+      "exposeBattery": {
+        "title": "Expose Battery Service",
+        "type": "boolean",
+        "default": true,
+        "required": false,
+        "description": "Add battery service to each device"
+      },
+      "exposeConnectionStatus": {
+        "title": "Expose Connection Status",
+        "type": "boolean",
+        "default": true,
+        "required": false,
+        "description": "Add occupancy sensor to track device online/offline status"
+      },
+      "exposeCardDetection": {
+        "title": "Expose Card Detection",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Add contact sensor to detect when a card is inserted"
+      },
+      "exposeVolumeLimits": {
+        "title": "Expose Volume Limits",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Add lightbulb services to control day and night volume limits (0-16)"
+      },
+      "exposeAmbientLight": {
+        "title": "Expose Ambient Light",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Add lightbulb service with RGB color control for ambient light"
+      },
+      "exposeActiveContent": {
+        "title": "Expose Active Content",
+        "type": "boolean",
+        "default": true,
+        "required": false,
+        "description": "Track and log active content information when playing"
+      },
+      "updateAccessoryName": {
+        "title": "Update Accessory Name with Content",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Update accessory display name to show currently playing content"
+      },
+      "exposeDisplayBrightness": {
+        "title": "Expose Display Brightness",
+        "type": "boolean",
+        "default": true,
+        "required": false,
+        "description": "Add lightbulb service to control display brightness"
+      },
+      "exposeSleepTimer": {
+        "title": "Expose Sleep Timer",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Add fan service to control sleep timer (rotation speed = minutes)"
+      },
+      "exposeAdvancedControls": {
+        "title": "Expose Advanced Controls",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Add switches for advanced settings (Bluetooth, Repeat, BT Headphones)"
+      },
+      "volumeControlType": {
+        "title": "Volume Control Type",
+        "type": "string",
+        "default": "speaker",
+        "required": false,
+        "oneOf": [
+          {
+            "title": "Smart Speaker",
+            "enum": ["speaker"]
+          },
+          {
+            "title": "Fan (Alternate)",
+            "enum": ["fan"]
+          },
+          {
+            "title": "Lightbulb (Alternate)",
+            "enum": ["lightbulb"]
+          }
+        ],
+        "description": "Service type to use for volume control"
+      },
+      "debug": {
+        "title": "Debug Logging",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Enable verbose debug logging"
+      }
+    }
+  },
+  "layout": [
+    {
+      "type": "section",
+      "title": "Platform Configuration",
+      "expandable": false,
+      "items": ["name"]
+    },
+    {
+      "type": "section",
+      "title": "Authentication",
+      "expandable": true,
+      "expanded": false,
+      "items": [
+        {
+          "type": "help",
+          "helpvalue": "<p><strong>OAuth Setup Instructions:</strong></p><ol><li>Start Homebridge - the plugin will initiate OAuth flow automatically if no tokens are present</li><li>Check Homebridge logs for the verification URL and user code</li><li>Visit the URL and enter the code to authorize the plugin</li><li>After authorization, the tokens will be saved automatically</li><li>Restart Homebridge to apply the changes</li></ol><p><em>Note: These fields are managed automatically and should not be edited manually unless troubleshooting.</em></p>"
+        },
+        "clientId",
+        "accessToken",
+        "refreshToken",
+        "tokenExpiresAt"
+      ]
+    },
+    {
+      "type": "section",
+      "title": "MQTT Configuration",
+      "expandable": true,
+      "expanded": false,
+      "items": ["mqttBroker", "statusTimeoutSeconds"]
+    },
+    {
+      "type": "section",
+      "title": "Feature Toggles",
+      "expandable": true,
+      "expanded": true,
+      "items": [
+        "exposeBattery",
+        "exposeTemperature",
+        "exposeConnectionStatus",
+        "exposeCardDetection",
+        "exposeDisplayBrightness",
+        "exposeSleepTimer",
+        "exposeVolumeLimits",
+        "exposeAmbientLight",
+        "exposeAdvancedControls",
+        "exposeActiveContent",
+        "updateAccessoryName"
+      ]
+    },
+    {
+      "type": "section",
+      "title": "Advanced Settings",
+      "expandable": true,
+      "expanded": false,
+      "items": ["volumeControlType", "debug"]
+    }
+  ]
+}
