@@ -2,6 +2,7 @@
   "pluginAlias": "Yoto",
   "pluginType": "platform",
   "singular": true,
+  "childBridgePlatform": false,
   "headerDisplay": "**Homebridge Yoto Plugin** - Control your Yoto players through HomeKit",
   "footerDisplay": "For help and documentation, visit the [GitHub repository](https://github.com/bcomnes/homebridge-yoto)",
   "schema": {
