@@ -5,7 +5,7 @@
 /** @import { API } from 'homebridge' */
 
 import { YotoPlatform } from './lib/platform.js'
-import { PLATFORM_NAME } from './lib/settings.js'
+import { PLATFORM_NAME } from './lib/constants.js'
 
 /**
  * Register the Yoto platform with Homebridge

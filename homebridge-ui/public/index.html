@@ -1,0 +1,138 @@
+<!-- Load client script as module -->
+<script type="module" src="client.js"></script>
+
+<div class="card card-body">
+  <!-- Authentication Status -->
+  <div id="authStatus">
+    <h4>Authentication Status</h4>
+    <div id="statusMessage" class="alert alert-info">
+      Checking authentication status...
+    </div>
+  </div>
+
+  <!-- Authentication Required Section -->
+  <div id="authRequired" style="display: none">
+    <div class="alert alert-warning">
+      <h5>Yoto Authentication Required</h5>
+      <p>
+        To connect your Yoto devices to HomeKit, please authorize this plugin:
+      </p>
+
+      <ol>
+        <li>Click the button below to start authentication</li>
+        <li>Visit the Yoto website when prompted</li>
+        <li>Enter the code shown</li>
+        <li>Wait for confirmation</li>
+      </ol>
+    </div>
+
+    <!-- Advanced Settings -->
+    <details class="card mb-3">
+      <summary class="card-header" style="cursor: pointer">
+        <strong>Advanced Settings</strong>
+        <small class="text-muted">(optional)</small>
+      </summary>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="clientIdInput">OAuth Client ID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="clientIdInput"
+            placeholder="Loading..."
+          />
+          <small class="grey-text help-block small" id="clientIdHelp">
+            Default: <code id="defaultClientIdDisplay">Loading...</code>. Only
+            change this if you have your own Yoto OAuth application.
+          </small>
+        </div>
+      </div>
+    </details>
+
+    <div class="text-center">
+      <button id="startAuthButton" type="button" class="btn btn-primary btn-lg">
+        Start Authentication
+      </button>
+    </div>
+  </div>
+
+  <!-- Device Code Display -->
+  <div id="deviceCodeSection" style="display: none">
+    <div class="alert alert-info">
+      <h5>Complete Authentication</h5>
+
+      <div class="form-group">
+        <label>Click to authorize (code included in URL)</label>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            id="verificationUrlComplete"
+            readonly
+          />
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button" id="openUrlButton">
+              Open &amp; Authorize
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Or manually enter this code</label>
+        <input
+          type="text"
+          class="form-control form-control-lg text-center"
+          id="userCode"
+          readonly
+          style="font-family: monospace; font-weight: bold"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Time remaining</label>
+        <div class="progress">
+          <div
+            id="countdownBar"
+            class="progress-bar"
+            role="progressbar"
+            style="width: 100%"
+          >
+            <span id="countdownText">15:00</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center">
+        <small>Waiting for authorization...</small>
+      </p>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div id="authSuccess" style="display: none">
+    <div class="alert alert-success">
+      <h5>✓ Authentication Successful!</h5>
+      <p>
+        Your Yoto account is connected. The plugin will now discover your
+        devices.
+      </p>
+    </div>
+    <div class="text-center">
+      <button id="logoutButton" type="button" class="btn btn-outline-danger">
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <!-- Error Display -->
+  <div id="errorSection" style="display: none">
+    <div class="alert alert-danger">
+      <h5>Authentication Error</h5>
+      <p id="errorMessage"></p>
+      <button id="retryButton" type="button" class="btn btn-danger">
+        Try Again
+      </button>
+    </div>
+  </div>
+</div>
