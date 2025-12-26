@@ -12,8 +12,8 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2
       yoto-nodejs-client:
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.4
+        version: 0.0.4
     devDependencies:
       '@types/node':
         specifier: ^25.0.0
@@ -2501,8 +2501,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  yoto-nodejs-client@0.0.2:
-    resolution: {integrity: sha512-a8rkklG1VzT9Mg/fJWEmA+gzj/Gwan3d8krwauSte9RwQOFV7mVXt63x5+KXvT34MiEasfFMil6Muu9IGYdkcQ==}
+  yoto-nodejs-client@0.0.4:
+    resolution: {integrity: sha512-gj+u9sVBRIqGLw7a77F2nMuzM/K9z0SVpk9gLXf+RUkSdlDCM88HCmc5OkZtp+VxOUr6qWMs3vSPbULT0DLTYw==}
     engines: {node: '>=20', npm: '>=10'}
     hasBin: true
 
@@ -5420,7 +5420,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  yoto-nodejs-client@0.0.2:
+  yoto-nodejs-client@0.0.4:
     dependencies:
       jwt-decode: 4.0.0
       mqtt: 5.14.1

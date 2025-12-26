@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@homebridge/plugin-ui-utils": "^2.1.2",
-    "yoto-nodejs-client": "^0.0.2"
+    "yoto-nodejs-client": "^0.0.4"
   },
   "devDependencies": {
     "@types/node": "^25.0.0",
