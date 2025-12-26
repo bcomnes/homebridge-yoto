@@ -38,3 +38,9 @@ MQTT
 -
 
 - https://github.com/ebaauw/homebridge-zp/issues/10#issuecomment-270743358
+
+
+- Implement a improved config type, and populate it.
+- Audit the set functions in hb, make sure the client works/helps with that. 
+- Clean up unused vars and config
+- Audit online/offline config set methods

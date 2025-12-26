@@ -11,9 +11,12 @@ importers:
       '@homebridge/plugin-ui-utils':
         specifier: ^2.1.2
         version: 2.1.2
+      color-convert:
+        specifier: ^3.1.3
+        version: 3.1.3
       yoto-nodejs-client:
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.4
+        version: 0.0.4
     devDependencies:
       '@types/node':
         specifier: ^25.0.0
@@ -716,11 +719,19 @@ packages:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
     engines: {node: '>=7.0.0'}
 
+  color-convert@3.1.3:
+    resolution: {integrity: sha512-fasDH2ont2GqF5HpyO4w0+BcewlhHEZOFn9c1ckZdHpJ56Qb7MHhH/IcJZbBGgvdtwdwNbLvxiBEdg336iA9Sg==}
+    engines: {node: '>=14.6'}
+
   color-name@1.1.3:
     resolution: {integrity: sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==}
 
   color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+
+  color-name@2.1.0:
+    resolution: {integrity: sha512-1bPaDNFm0axzE4MEAzKPuqKWeRaT43U/hyxKPBdqTfmPF+d6n7FSoTFxLVULUJOmiLp01KjhIPPH+HrXZJN4Rg==}
+    engines: {node: '>=12.20'}
 
   color-support@1.1.3:
     resolution: {integrity: sha512-qiBjkpbMLO/HL68y+lh4q0/O1MZFj2RX6X/KmMa3+gJD3z+WwI1ZzDHysvqHGS3mP6mznPckpXmw1nI9cJjyRg==}
@@ -2501,8 +2512,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  yoto-nodejs-client@0.0.2:
-    resolution: {integrity: sha512-a8rkklG1VzT9Mg/fJWEmA+gzj/Gwan3d8krwauSte9RwQOFV7mVXt63x5+KXvT34MiEasfFMil6Muu9IGYdkcQ==}
+  yoto-nodejs-client@0.0.4:
+    resolution: {integrity: sha512-gj+u9sVBRIqGLw7a77F2nMuzM/K9z0SVpk9gLXf+RUkSdlDCM88HCmc5OkZtp+VxOUr6qWMs3vSPbULT0DLTYw==}
     engines: {node: '>=20', npm: '>=10'}
     hasBin: true
 
@@ -3292,9 +3303,15 @@ snapshots:
     dependencies:
       color-name: 1.1.4
 
+  color-convert@3.1.3:
+    dependencies:
+      color-name: 2.1.0
+
   color-name@1.1.3: {}
 
   color-name@1.1.4: {}
+
+  color-name@2.1.0: {}
 
   color-support@1.1.3: {}
 
@@ -5420,7 +5437,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  yoto-nodejs-client@0.0.2:
+  yoto-nodejs-client@0.0.4:
     dependencies:
       jwt-decode: 4.0.0
       mqtt: 5.14.1

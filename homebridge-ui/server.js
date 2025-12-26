@@ -121,6 +121,7 @@ async function startDeviceFlow (payload) {
  * @typedef {Object} AuthPollSlowDownResponse
  * @property {true} slow_down - Indicates polling too fast
  * @property {string} message - Status message about slowing down
+ * @property {number} [interval] - Updated polling interval (in seconds)
  */
 
 /**
@@ -155,45 +156,17 @@ async function pollForToken (payload) {
   }
 
   try {
-    // Try to exchange device code for tokens
-    console.log('[Server] Attempting token exchange...')
-    const tokenResponse = await YotoClient.exchangeToken({
-      grantType: 'urn:ietf:params:oauth:grant-type:device_code',
+    // Poll for device token using helper function
+    console.log('[Server] Polling for device token...')
+    const pollResult = await YotoClient.pollForDeviceToken({
       deviceCode,
       clientId,
       audience: 'https://api.yotoplay.com'
     })
-    console.log('[Server] Token exchange successful!')
 
-    // Validate required token fields
-    if (!tokenResponse.refresh_token || !tokenResponse.access_token) {
-      throw new Error('Token response missing required fields')
-    }
-
-    // Calculate token expiration (24 hours from now)
-    const expiresIn = tokenResponse.expires_in
-    const tokenExpiresAt = Date.now() + (expiresIn * 1000)
-
-    // Return tokens to client for saving
-    /** @type {AuthPollSuccessResponse} */
-    const result = {
-      success: true,
-      message: 'Authentication successful!',
-      refreshToken: tokenResponse.refresh_token,
-      accessToken: tokenResponse.access_token,
-      tokenExpiresAt
-    }
-    console.log('[Server] pollForToken success, returning tokens (redacted)')
-    return result
-  } catch (error) {
-    // YotoAPIError has error details in error.body
-    const err = /** @type {any} */ (error)
-    const errorCode = err.body?.error
-    const errorDescription = err.body?.error_description
-
-    // Handle expected polling errors based on error.body.error
-    if (errorCode === 'authorization_pending') {
-      // This is expected during polling - don't log as error
+    // Check if authorization is still pending
+    if (pollResult.status === 'pending') {
+      console.log('[Server] Authorization still pending...')
       /** @type {AuthPollPendingResponse} */
       const pendingResult = {
         pending: true,
@@ -202,15 +175,46 @@ async function pollForToken (payload) {
       return pendingResult
     }
 
-    if (errorCode === 'slow_down') {
-      console.log('[Server] Polling too fast, slowing down...')
+    // Check if we need to slow down polling
+    if (pollResult.status === 'slow_down') {
+      const intervalSeconds = pollResult.interval / 1000 // pollResult.interval is in milliseconds, convert to seconds
+      console.log('[Server] Polling too fast, slowing down to interval:', intervalSeconds, 'seconds')
       /** @type {AuthPollSlowDownResponse} */
       const slowDownResult = {
         slow_down: true,
-        message: 'Polling too fast, slowing down...'
+        message: 'Polling too fast, slowing down...',
+        interval: intervalSeconds // Client expects seconds
       }
       return slowDownResult
     }
+
+    // Success - we got tokens (status === 'success')
+    console.log('[Server] Token exchange successful!')
+
+    // Validate required token fields
+    if (!pollResult.tokens.refresh_token || !pollResult.tokens.access_token) {
+      throw new Error('Token response missing required fields')
+    }
+
+    // Calculate token expiration
+    const tokenExpiresAt = Date.now() + (pollResult.tokens.expires_in * 1000)
+
+    // Return tokens to client for saving
+    /** @type {AuthPollSuccessResponse} */
+    const result = {
+      success: true,
+      message: 'Authentication successful!',
+      refreshToken: pollResult.tokens.refresh_token,
+      accessToken: pollResult.tokens.access_token,
+      tokenExpiresAt
+    }
+    console.log('[Server] pollForToken success, returning tokens (redacted)')
+    return result
+  } catch (error) {
+    // Handle errors from pollForDeviceToken
+    const err = /** @type {any} */ (error)
+    const errorCode = err.body?.error
+    const errorDescription = err.body?.error_description
 
     if (errorCode === 'expired_token') {
       console.error('[Server] Device code expired')
@@ -227,7 +231,7 @@ async function pollForToken (payload) {
     }
 
     // Unexpected error - log full details
-    console.error('[Server] Unexpected error during token exchange:', error)
+    console.error('[Server] Unexpected error during token poll:', error)
     console.error('[Server] Error code:', errorCode)
     console.error('[Server] Error description:', errorDescription)
     const errorMessage = errorDescription || (error instanceof Error ? error.message : String(error))

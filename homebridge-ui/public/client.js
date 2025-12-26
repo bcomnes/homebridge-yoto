@@ -6,7 +6,7 @@
  */
 
 /** @import {IHomebridgePluginUi} from '@homebridge/plugin-ui-utils/ui.interface' */
-/** @import { AuthConfigResponse, AuthStartResponse, AuthPollResponse } from '../server.js' */
+/** @import { AuthConfigResponse, AuthStartResponse, AuthPollResponse, AuthPollSlowDownResponse } from '../server.js' */
 
 /**
  * @global
@@ -309,9 +309,11 @@ function startPolling () {
         showAuthSuccess()
       } else if ('slow_down' in result && result.slow_down) {
         // Type guard: check if slow_down response
-        // Increase polling interval
+        // Use the interval from the server response, or increase by 1.5x as fallback
         if (pollingInterval) clearInterval(pollingInterval)
-        pollIntervalSeconds = pollIntervalSeconds * 1.5
+        const slowDownResult = /** @type {AuthPollSlowDownResponse} */ (result)
+        pollIntervalSeconds = slowDownResult.interval || (pollIntervalSeconds * 1.5)
+        console.log('[Client] Slowing down polling to', pollIntervalSeconds, 'seconds')
         startPolling()
       }
       // If pending (has 'pending' property), just continue polling

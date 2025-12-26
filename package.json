@@ -1,14 +1,15 @@
 {
   "name": "homebridge-yoto",
   "description": "Control your Yoto players through Apple HomeKit with real-time MQTT updates",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "author": "Bret Comnes <bcomnes@gmail.com> (https://bret.io)",
   "bugs": {
     "url": "https://github.com/bcomnes/homebridge-yoto/issues"
   },
   "dependencies": {
     "@homebridge/plugin-ui-utils": "^2.1.2",
-    "yoto-nodejs-client": "^0.0.2"
+    "color-convert": "3.1.3",
+    "yoto-nodejs-client": "^0.0.4"
   },
   "devDependencies": {
     "@types/node": "^25.0.0",
