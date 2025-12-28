@@ -16,7 +16,7 @@ importers:
         version: 3.1.3
       yoto-nodejs-client:
         specifier: github:bcomnes/yoto-nodejs-client#build
-        version: https://codeload.github.com/bcomnes/yoto-nodejs-client/tar.gz/b399d1765dbebd48cb3f4ea21cbd7d465aef51e5
+        version: https://codeload.github.com/bcomnes/yoto-nodejs-client/tar.gz/3ce20b83f87d0fb54495211d1ca253ad04724b74
     devDependencies:
       '@types/node':
         specifier: ^25.0.0
@@ -2512,8 +2512,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  yoto-nodejs-client@https://codeload.github.com/bcomnes/yoto-nodejs-client/tar.gz/b399d1765dbebd48cb3f4ea21cbd7d465aef51e5:
-    resolution: {tarball: https://codeload.github.com/bcomnes/yoto-nodejs-client/tar.gz/b399d1765dbebd48cb3f4ea21cbd7d465aef51e5}
+  yoto-nodejs-client@https://codeload.github.com/bcomnes/yoto-nodejs-client/tar.gz/3ce20b83f87d0fb54495211d1ca253ad04724b74:
+    resolution: {tarball: https://codeload.github.com/bcomnes/yoto-nodejs-client/tar.gz/3ce20b83f87d0fb54495211d1ca253ad04724b74}
     version: 0.0.5
     engines: {node: '>=20', npm: '>=10'}
     hasBin: true
@@ -5438,7 +5438,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  yoto-nodejs-client@https://codeload.github.com/bcomnes/yoto-nodejs-client/tar.gz/b399d1765dbebd48cb3f4ea21cbd7d465aef51e5:
+  yoto-nodejs-client@https://codeload.github.com/bcomnes/yoto-nodejs-client/tar.gz/3ce20b83f87d0fb54495211d1ca253ad04724b74:
     dependencies:
       jwt-decode: 4.0.0
       mqtt: 5.14.1
