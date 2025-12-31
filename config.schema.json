@@ -44,6 +44,66 @@
         "x-schema-form": {
           "hidden": true
         }
+      },
+      "services": {
+        "title": "Accessory Services",
+        "type": "object",
+        "properties": {
+          "playback": {
+            "title": "Playback",
+            "type": "boolean",
+            "default": true,
+            "description": "Expose a playback switch."
+          },
+          "volume": {
+            "title": "Volume",
+            "type": "boolean",
+            "default": true,
+            "description": "Expose volume controls."
+          },
+          "temperature": {
+            "title": "Temperature Sensor",
+            "type": "boolean",
+            "default": true,
+            "description": "Expose temperature sensor when supported."
+          },
+          "nightlight": {
+            "title": "Nightlight",
+            "type": "boolean",
+            "default": false,
+            "description": "Expose day/night nightlight controls and status."
+          },
+          "cardSlot": {
+            "title": "Card Slot",
+            "type": "boolean",
+            "default": true,
+            "description": "Expose card insertion status."
+          },
+          "nightMode": {
+            "title": "Night Mode",
+            "type": "boolean",
+            "default": true,
+            "description": "Expose night mode status."
+          },
+          "sleepTimer": {
+            "title": "Sleep Timer",
+            "type": "boolean",
+            "default": false,
+            "description": "Expose sleep timer switch."
+          },
+          "bluetooth": {
+            "title": "Bluetooth",
+            "type": "boolean",
+            "default": false,
+            "description": "Expose Bluetooth toggle."
+          },
+          "volumeLimits": {
+            "title": "Volume Limits",
+            "type": "boolean",
+            "default": true,
+            "description": "Expose day/night max volume controls."
+          }
+        }
       }
     }
   },
@@ -61,6 +121,27 @@
         "clientId",
         "accessToken",
         "refreshToken"
+      ]
+    },
+    {
+      "type": "section",
+      "title": "Accessory Services",
+      "expandable": true,
+      "expanded": false,
+      "items": [
+        {
+          "type": "help",
+          "helpvalue": "<p>Select which HomeKit services to expose for each Yoto device.</p>"
+        },
+        "services.playback",
+        "services.volume",
+        "services.temperature",
+        "services.nightlight",
+        "services.cardSlot",
+        "services.nightMode",
+        "services.sleepTimer",
+        "services.bluetooth",
+        "services.volumeLimits"
       ]
     }
   ]

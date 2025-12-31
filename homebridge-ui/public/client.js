@@ -52,8 +52,7 @@ async function initializeUI () {
   if (retryBtn) retryBtn.addEventListener('click', retryAuth)
   if (logoutBtn) logoutBtn.addEventListener('click', logout)
 
-  // Show schema-based config form below custom UI
-  homebridge.showSchemaForm()
+  homebridge.hideSchemaForm()
 
   // Load auth config and check authentication status
   await loadAuthConfig()
@@ -62,6 +61,17 @@ async function initializeUI () {
 
 // Initialize on ready
 homebridge.addEventListener('ready', initializeUI)
+
+/**
+ * @param {boolean} shouldShow
+ */
+function setSchemaFormVisibility (shouldShow) {
+  if (shouldShow) {
+    homebridge.showSchemaForm()
+  } else {
+    homebridge.hideSchemaForm()
+  }
+}
 
 /**
  * Show a specific UI section and hide all others
@@ -90,6 +100,8 @@ function showSection (sectionToShow, options = {}) {
     const errorMessageEl = document.getElementById('errorMessage')
     if (errorMessageEl) errorMessageEl.textContent = options.errorMessage
   }
+
+  setSchemaFormVisibility(sectionToShow === 'authSuccess')
 }
 
 /**
@@ -297,12 +309,6 @@ function startPolling () {
         // Save to Homebridge config
         await homebridge.updatePluginConfig(pluginConfig)
         await homebridge.savePluginConfig()
-
-        // Refresh the schema form to show updated token fields
-        homebridge.hideSchemaForm()
-        setTimeout(() => {
-          homebridge.showSchemaForm()
-        }, 100)
 
         homebridge.toast.success('Authentication successful!')
         homebridge.toast.info('Please restart the plugin for changes to take effect', 'Restart Required')
