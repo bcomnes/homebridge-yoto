@@ -19,6 +19,7 @@ http://bee.local:8581/login
 - Scoped Plugins (Reference) https://github.com/homebridge/plugins/wiki/Scoped-Plugins#available-plugins
 - https://github.com/homebridge-plugins/homebridge-rainbird/blob/latest/src/platform.ts
 - https://github.com/homebridge-plugins/homebridge-unifi-network
+- https://github.com/ebaauw/homebridge-zp/issues/10#issuecomment-270743358
 
 
 Yoto Docs: 
