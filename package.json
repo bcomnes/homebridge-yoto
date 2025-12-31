@@ -38,6 +38,17 @@
   "module": "index.js",
   "main": "index.js",
   "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "index.d.ts.map",
+    "config.schema.json",
+    "config.schema.cjs",
+    "lib/",
+    "homebridge-ui/",
+    "README.md",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/bcomnes/homebridge-yoto.git"
