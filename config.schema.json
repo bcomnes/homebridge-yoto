@@ -79,11 +79,11 @@
             "default": true,
             "description": "Expose card insertion status."
           },
-          "nightMode": {
-            "title": "Night Mode",
+          "dayMode": {
+            "title": "Day Mode",
             "type": "boolean",
             "default": true,
-            "description": "Expose night mode status."
+            "description": "Expose day mode status."
           },
           "sleepTimer": {
             "title": "Sleep Timer",
@@ -138,7 +138,7 @@
         "services.temperature",
         "services.nightlight",
         "services.cardSlot",
-        "services.nightMode",
+        "services.dayMode",
         "services.sleepTimer",
         "services.bluetooth",
         "services.volumeLimits"
