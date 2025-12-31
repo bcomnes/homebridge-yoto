@@ -25,6 +25,48 @@
 
 THIS PLUGIN IS A WIP. DO NOT USE YET.
 
+Homebridge plugin that exposes Yoto players to HomeKit with optional playback controls, device status, and nightlight settings.
+
+## Settings
+
+**Playback Controls** (`services.playbackAccessory`)
+- **Bridged (Switch + Dimmer)**: Adds Playback and Volume services on the main accessory.
+- **External Smart Speaker**: Publishes a separate Smart Speaker accessory for playback and volume. Requires pairing the extra accessory in the Home app.
+- **None**: Disables playback and volume services entirely.
+
+**Service toggles**
+- **Temperature Sensor**: Adds a temperature sensor when supported by the device.
+- **Nightlight**: Adds day/night nightlight controls and status sensors.
+- **Card Slot**: Adds a card insertion sensor.
+- **Day Mode**: Adds a day/night mode sensor.
+- **Sleep Timer**: Adds a sleep timer switch.
+- **Bluetooth**: Adds a Bluetooth toggle switch.
+- **Volume Limits**: Adds day/night max volume controls.
+
+## HomeKit Services
+
+**Playback (bridged)**
+- **Playback**: Switch; On resumes, Off pauses.
+- **Volume**: Lightbulb; On unmutes, Off mutes, Brightness maps 0-100% to device volume steps.
+
+**Smart Speaker (external)**
+- **Smart Speaker**: Current/Target Media State, Volume, Mute, and StatusActive (online state).
+
+**Device status**
+- **Online Status**: Contact sensor; Contact Not Detected = online.
+- **Battery**: Battery level, charging state, and low battery.
+- **Temperature**: Temperature sensor with fault status when offline/unavailable.
+
+**Nightlight**
+- **Day Nightlight / Night Nightlight**: Lightbulbs with On/Off, Brightness, Hue, and Saturation.
+- **Nightlight Active / Day Nightlight Active / Night Nightlight Active**: Contact sensors for live nightlight state.
+
+**Other controls**
+- **Card Slot**: Contact sensor for card insertion.
+- **Day Mode**: Contact sensor; Contact Not Detected = day mode.
+- **Sleep Timer**: Switch to enable/disable sleep timer.
+- **Bluetooth**: Switch to toggle Bluetooth.
+- **Day/Night Max Volume**: Lightbulb brightness sets max volume limits.
 
 ## License
 
