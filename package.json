@@ -40,8 +40,6 @@
   "types": "index.d.ts",
   "files": [
     "index.js",
-    "index.d.ts",
-    "index.d.ts.map",
     "config.schema.json",
     "config.schema.cjs",
     "lib/",
@@ -55,7 +53,6 @@
   },
   "scripts": {
     "prepublishOnly": "git push --follow-tags && gh-release -y",
-    "postpublish": "npm run clean",
     "test": "run-s test:*",
     "test:lint": "eslint",
     "test:tsc": "tsc",
