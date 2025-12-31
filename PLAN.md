@@ -4,39 +4,50 @@
 
 ### Architecture
 - ✅ Platform plugin using `yoto-nodejs-client` for device management
-- ✅ One accessory per Yoto device (published as external accessory for SmartSpeaker support)
+- ✅ One bridged accessory per Yoto device, optional external SmartSpeaker accessory when `services.playbackAccessory=external`
+- ✅ External SmartSpeaker uses a dedicated accessory handler and is published once per runtime
 - ✅ Real-time updates via MQTT + periodic HTTP polling fallback
 - ✅ Offline detection and "No Response" status handling
 - ✅ Capability-based service registration (v2/v3/mini device support)
+- ✅ Config-driven service exposure via `services` options
 
 ### Core Services (Always Present)
 - ✅ **AccessoryInformation** - Device metadata (manufacturer, model, serial, firmware)
-- ✅ **SmartSpeaker** (PRIMARY) - Playback control and volume
+- ✅ **ContactSensor (Online Status)** - Online/offline state (PRIMARY)
 - ✅ **Battery** - Battery level, charging state, low battery indicator
-- ✅ **ContactSensor (CardSlot)** - Card insertion detection
-- ✅ **OccupancySensor (NightModeStatus)** - Day/night mode indicator
-- ✅ **Switch (SleepTimer)** - Toggle sleep timer (30 min default)
-- ✅ **Switch (Bluetooth)** - Toggle Bluetooth on/off
-- ✅ **Fanv2 (DayMaxVolume)** - Day mode max volume limit control
-- ✅ **Fanv2 (NightMaxVolume)** - Night mode max volume limit control
 
-### Optional Services (Capability-Based)
-- ✅ **TemperatureSensor** - Temperature reading (v3 only)
-- ✅ **Lightbulb (DayNightlight)** - Day nightlight color/brightness control (v3 only)
-- ✅ **Lightbulb (NightNightlight)** - Night nightlight color/brightness control (v3 only)
-- ✅ **ContactSensor (NightlightActive)** - Live nightlight status (v3 only)
-- ✅ **ContactSensor (DayNightlightActive)** - Day nightlight status (v3 only)
-- ✅ **ContactSensor (NightNightlightActive)** - Night nightlight status (v3 only)
+### Configurable Services (Toggle + Capability)
+- ✅ **Switch (Playback)** - Playback switch (bridged mode only)
+- ✅ **Lightbulb (Volume)** - Volume + mute controls (bridged mode only)
+- ✅ **TemperatureSensor** - Temperature reading (v3 only, toggle)
+- ✅ **Lightbulb (DayNightlight)** - Day nightlight color/brightness (v3 only, toggle)
+- ✅ **Lightbulb (NightNightlight)** - Night nightlight color/brightness (v3 only, toggle)
+- ✅ **ContactSensor (NightlightActive)** - Live nightlight status (v3 only, toggle)
+- ✅ **ContactSensor (DayNightlightActive)** - Day nightlight status (v3 only, toggle)
+- ✅ **ContactSensor (NightNightlightActive)** - Night nightlight status (v3 only, toggle)
+- ✅ **ContactSensor (CardSlot)** - Card insertion detection (toggle)
+- ✅ **Switch (CardControl)** - Plays a configured card ID (toggle)
+- ✅ **ContactSensor (DayMode)** - Day/night mode indicator (toggle)
+- ✅ **Switch (SleepTimer)** - Toggle sleep timer (toggle)
+- ✅ **Switch (Bluetooth)** - Toggle Bluetooth on/off (toggle)
+- ✅ **Lightbulb (DayMaxVolume)** - Day mode max volume limit (toggle)
+- ✅ **Lightbulb (NightMaxVolume)** - Night mode max volume limit (toggle)
+
+### External Accessories (Optional)
+- ✅ **SmartSpeaker** - External SmartSpeaker accessory when `services.playbackAccessory=external`
+
+### Additional Accessories (Optional)
+- ✅ **Card Control (All Yotos)** - Separate accessory per card control when `playOnAll` is enabled
 
 ## Service & Characteristic Reference
 
 All services are named consistently using `generateServiceName()` helper: `"[Device Name] [Service Name]"`
 
-### Yoto Player Accessory
+### Yoto Player Accessory (Bridged)
 
-Each Yoto device is represented as a single HomeKit accessory with multiple services.
+Each Yoto device is represented as a bridged HomeKit accessory. Playback controls are exposed on this accessory only when `services.playbackAccessory=bridged`.
 
-**Category**: `SPEAKER` (required for SmartSpeaker service)
+**Category**: `SPEAKER`
 
 ---
 
@@ -55,19 +66,40 @@ Standard HomeKit service providing device identification.
 
 ---
 
-#### Service: SmartSpeaker (PRIMARY)
+#### Service: ContactSensor (subtype: "OnlineStatus") (PRIMARY)
 
-Controls playback and volume. Marked as primary service for the accessory.
+Online/offline indicator for the device.
 
 **Characteristics:**
-- `CurrentMediaState` (GET) - PLAY/PAUSE/STOP based on playback status
-- `TargetMediaState` (GET/SET) - Control playback (play/pause/stop)
-- `Volume` (GET/SET) - Volume level (0-16 native scale, dynamic max based on volume limit)
-- `Mute` (GET/SET) - Mute state (derived from volume === 0)
-- `StatusActive` (GET) - Online/offline indicator
+- `ContactSensorState` (GET) - CONTACT_NOT_DETECTED when online, CONTACT_DETECTED when offline
 
-**Source:** `status.volume`, `playback.playbackStatus`  
-**Control:** `sendCommand({ action: 'play' | 'pause' | 'stop' | 'volume', volume: N })`
+**Source:** `status.isOnline`
+
+---
+
+#### Service: Switch (subtype: "Playback") - OPTIONAL (bridged)
+
+Play/pause control.
+
+**Characteristics:**
+- `On` (GET/SET) - On = playing, Off = paused
+
+**Source:** `playback.playbackStatus`  
+**Control:** `resumeCard()` / `pauseCard()`
+
+---
+
+#### Service: Lightbulb (subtype: "Volume") - OPTIONAL (bridged)
+
+Volume and mute control.
+
+**Characteristics:**
+- `On` (GET/SET) - Mute/unmute
+- `Brightness` (GET/SET) - Volume level 0-100%
+
+**Source:** `status.volume`  
+**Control:** `setVolume(steps)`  
+**Conversion:** `percent = (steps / 16) * 100`
 
 ---
 
@@ -79,7 +111,6 @@ Battery status information.
 - `BatteryLevel` (GET) - Battery percentage (0-100)
 - `ChargingState` (GET) - CHARGING or NOT_CHARGING
 - `StatusLowBattery` (GET) - LOW when ≤20%, NORMAL otherwise
-- `StatusActive` (GET) - Online/offline indicator
 
 **Source:** `status.batteryLevelPercentage`, `status.isCharging`
 
@@ -138,7 +169,7 @@ Night mode nightlight color and brightness control (config-based).
 Shows if nightlight is currently active (live device state).
 
 **Characteristics:**
-- `ContactSensorState` (GET) - CONTACT_DETECTED when nightlight on
+- `ContactSensorState` (GET) - CONTACT_NOT_DETECTED when nightlight on
 - `StatusActive` (GET) - Online/offline indicator
 
 **Source:** `status.nightlightMode !== 'off'`  
@@ -151,7 +182,7 @@ Shows if nightlight is currently active (live device state).
 Shows if day nightlight is currently active and showing.
 
 **Characteristics:**
-- `ContactSensorState` (GET) - CONTACT_DETECTED when day mode + nightlight on
+- `ContactSensorState` (GET) - CONTACT_NOT_DETECTED when day mode + nightlight on
 - `StatusActive` (GET) - Online/offline indicator
 
 **Source:** `status.dayMode === 'day' && status.nightlightMode !== 'off'`  
@@ -164,7 +195,7 @@ Shows if day nightlight is currently active and showing.
 Shows if night nightlight is currently active and showing.
 
 **Characteristics:**
-- `ContactSensorState` (GET) - CONTACT_DETECTED when night mode + nightlight on
+- `ContactSensorState` (GET) - CONTACT_NOT_DETECTED when night mode + nightlight on
 - `StatusActive` (GET) - Online/offline indicator
 
 **Source:** `status.dayMode === 'night' && status.nightlightMode !== 'off'`  
@@ -177,24 +208,22 @@ Shows if night nightlight is currently active and showing.
 Shows if a card is currently inserted.
 
 **Characteristics:**
-- `ContactSensorState` (GET) - CONTACT_DETECTED when card present
+- `ContactSensorState` (GET) - CONTACT_NOT_DETECTED when card present
 - `StatusActive` (GET) - Online/offline indicator
 
 **Source:** `status.cardInsertionState !== 'none'`
 
 ---
 
-#### Service: OccupancySensor (subtype: "NightModeStatus")
+#### Service: ContactSensor (subtype: "DayMode")
 
-Shows if device is in night mode (vs day mode).
+Shows if device is in day mode (vs night mode).
 
 **Characteristics:**
-- `OccupancyDetected` (GET) - OCCUPANCY_DETECTED when in night mode
+- `ContactSensorState` (GET) - CONTACT_NOT_DETECTED when in day mode
 - `StatusActive` (GET) - Online/offline indicator
 
-**Source:** `status.dayMode === 'night'`
-
-**Use Case:** Trigger automations based on device's day/night schedule
+**Source:** `status.dayMode === 'day'`
 
 ---
 
@@ -204,10 +233,21 @@ Toggle sleep timer on/off.
 
 **Characteristics:**
 - `On` (GET/SET) - Sleep timer active state
-- `StatusActive` (GET) - Online/offline indicator
 
 **Source:** `playback.sleepTimerActive`  
-**Control:** `sendCommand({ action: 'sleep-timer', minutes: 30 })` (on) or `minutes: 0` (off)
+**Control:** `setSleepTimer(30 * 60)` (on) or `setSleepTimer(0)` (off)
+
+---
+
+#### Service: Switch (subtype: "CardControl:<id>")
+
+Plays a configured card ID on the device.
+
+**Characteristics:**
+- `On` (GET/SET) - Trigger card playback; resets to Off
+
+**Source:** `services.cardControls[]`  
+**Control:** `startCard({ cardId: "<cardId>" })`
 
 ---
 
@@ -218,37 +258,37 @@ Toggle Bluetooth on/off (config-based, works offline).
 **Characteristics:**
 - `On` (GET/SET) - Bluetooth enabled state
 
-**Source:** `config.bluetoothEnabled` (string '0' or '1')  
-**Control:** `updateConfig({ bluetoothEnabled: '1' | '0' })`
+**Source:** `config.bluetoothEnabled` (boolean)  
+**Control:** `updateConfig({ bluetoothEnabled: true | false })`
 
 **Note:** No StatusActive - config-based services work offline
 
 ---
 
-#### Service: Fanv2 (subtype: "DayMaxVolume")
+#### Service: Lightbulb (subtype: "DayMaxVolume")
 
 Control day mode maximum volume limit (config-based, works offline).
 
 **Characteristics:**
-- `Active` (GET) - Always ACTIVE
-- `RotationSpeed` (GET/SET) - Volume limit 0-100%
+- `On` (GET/SET) - Always true
+- `Brightness` (GET/SET) - Volume limit 0-100%
 
 **Source:** `config.maxVolumeLimit` (device: 0-16, HomeKit: 0-100%)  
-**Control:** `updateConfig({ maxVolumeLimit: 'N' })`  
+**Control:** `updateConfig({ maxVolumeLimit: N })`  
 **Conversion:** `percentage = (limit / 16) * 100`
 
 ---
 
-#### Service: Fanv2 (subtype: "NightMaxVolume")
+#### Service: Lightbulb (subtype: "NightMaxVolume")
 
 Control night mode maximum volume limit (config-based, works offline).
 
 **Characteristics:**
-- `Active` (GET) - Always ACTIVE
-- `RotationSpeed` (GET/SET) - Volume limit 0-100%
+- `On` (GET/SET) - Always true
+- `Brightness` (GET/SET) - Volume limit 0-100%
 
 **Source:** `config.nightMaxVolumeLimit` (device: 0-16, HomeKit: 0-100%)  
-**Control:** `updateConfig({ nightMaxVolumeLimit: 'N' })`  
+**Control:** `updateConfig({ nightMaxVolumeLimit: N })`  
 **Conversion:** `percentage = (limit / 16) * 100`
 
 ---
@@ -268,22 +308,74 @@ One service per shortcut configured on device. Trigger shortcuts from HomeKit.
 
 ---
 
+### External SmartSpeaker Accessory (Optional)
+
+Published when `services.playbackAccessory=external`. This accessory is separate from the bridged device accessory, requires pairing, and replaces the bridged playback/volume services.
+
+#### Service: AccessoryInformation (Required)
+
+Same characteristics as the bridged accessory.
+
+---
+
+#### Service: SmartSpeaker (PRIMARY)
+
+Controls playback and volume on the external accessory.
+
+**Characteristics:**
+- `CurrentMediaState` (GET) - PLAY/PAUSE/STOP based on playback status
+- `TargetMediaState` (GET/SET) - Control playback (play/pause/stop; stop maps to pause)
+- `Volume` (GET/SET) - Volume level 0-100% (mapped to 0-16 steps)
+- `Mute` (GET/SET) - Mute state (derived from volume === 0)
+- `StatusActive` (GET) - Online/offline indicator
+
+**Source:** `status.volume`, `playback.playbackStatus`  
+**Control:** `resumeCard()` / `pauseCard()` / `setVolume(steps)`
+
+---
+
+### Card Control Accessory (All Yotos)
+
+Published for any card control with `playOnAll=true`. This accessory is bridged and provides a single switch to play the configured card on every online device.
+
+#### Service: AccessoryInformation (Required)
+
+Standard HomeKit service providing accessory metadata.
+
+---
+
+#### Service: Switch (PRIMARY)
+
+Plays a configured card ID on all online devices when toggled.
+
+**Characteristics:**
+- `On` (GET/SET) - Trigger card playback; resets to Off
+
+**Control:** `startCard({ cardId: "<cardId>" })` on each online device
+
+---
+
 ### Service Availability Matrix
 
-| Service | v2 | v3 | mini |
-|---------|----|----|------|
-| AccessoryInformation | ✅ | ✅ | ✅ |
-| SmartSpeaker | ✅ | ✅ | ✅ |
-| Battery | ✅ | ✅ | ✅ |
-| ContactSensor (CardSlot) | ✅ | ✅ | ✅ |
-| OccupancySensor (NightMode) | ✅ | ✅ | ✅ |
-| Switch (SleepTimer) | ✅ | ✅ | ✅ |
-| Switch (Bluetooth) | ✅ | ✅ | ✅ |
-| Fanv2 (Volume Limits) | ✅ | ✅ | ✅ |
-| TemperatureSensor | ❌ | ✅ | ❌ |
-| Lightbulb (Nightlights) | ❌ | ✅ | ❌ |
-| ContactSensor (Nightlight Status) | ❌ | ✅ | ❌ |
-| StatelessProgrammableSwitch | 🚧 | 🚧 | 🚧 |
+| Service | v2 | v3 | mini | Notes |
+|---------|----|----|------|-------|
+| AccessoryInformation | ✅ | ✅ | ✅ | Main accessory |
+| ContactSensor (Online Status) | ✅ | ✅ | ✅ | Main accessory |
+| Battery | ✅ | ✅ | ✅ | Main accessory |
+| Switch (Playback) | ✅ | ✅ | ✅ | `playbackAccessory=bridged` |
+| Lightbulb (Volume) | ✅ | ✅ | ✅ | `playbackAccessory=bridged` |
+| SmartSpeaker (external) | ✅ | ✅ | ✅ | `playbackAccessory=external` |
+| ContactSensor (CardSlot) | ✅ | ✅ | ✅ | Toggle |
+| Switch (Card Control) | ✅ | ✅ | ✅ | `services.cardControls[]` |
+| Switch (Card Control - All Yotos) | ✅ | ✅ | ✅ | `services.cardControls[].playOnAll` |
+| ContactSensor (DayMode) | ✅ | ✅ | ✅ | Toggle |
+| Switch (SleepTimer) | ✅ | ✅ | ✅ | Toggle |
+| Switch (Bluetooth) | ✅ | ✅ | ✅ | Toggle |
+| Lightbulb (Volume Limits) | ✅ | ✅ | ✅ | Toggle |
+| TemperatureSensor | ❌ | ✅ | ❌ | Toggle + capability |
+| Lightbulb (Nightlights) | ❌ | ✅ | ❌ | Toggle + capability |
+| ContactSensor (Nightlight Status) | ❌ | ✅ | ❌ | Toggle + capability |
+| StatelessProgrammableSwitch | 🚧 | 🚧 | 🚧 | Not implemented |
 
 ---
 
@@ -291,25 +383,29 @@ One service per shortcut configured on device. Trigger shortcuts from HomeKit.
 
 ### What Gets Marked as "No Response"
 
-Services are categorized by data source:
+Services are categorized by data source and whether they expose `StatusActive`.
 
-**Device State Services** (require online connection):
-- SmartSpeaker (playback, volume)
-- Battery (level, charging)
-- TemperatureSensor (temperature)
-- ContactSensor - all variants (card, nightlight status)
-- OccupancySensor (night mode)
-- Switch (SleepTimer) - reads playback state
+**Device State Services with StatusActive** (show No Response when offline):
+- TemperatureSensor
+- ContactSensor variants (card slot, day mode, nightlight status)
+- SmartSpeaker (external accessory)
+
+**Device State Services without StatusActive**:
+- ContactSensor (Online Status) uses ContactSensorState to show online/offline
+- Switch (Playback) and Lightbulb (Volume) in bridged mode
+- Battery
+- Switch (SleepTimer)
+- Switch (Card Control) (per device and All Yotos)
 
 **Config-Based Services** (work offline):
 - Lightbulb (nightlight color/brightness)
-- Fanv2 (volume limits)
+- Lightbulb (volume limits)
 - Switch (Bluetooth)
 - StatelessProgrammableSwitch (shortcuts)
 
 ### Implementation
 
-Device state services use `StatusActive` characteristic to indicate offline status. When `StatusActive` is false, HomeKit shows "No Response" for the service.
+Device state services that support `StatusActive` are updated from `status.isOnline`. The Online Status contact sensor flips state when the device goes offline.
 
 Config-based services do NOT have `StatusActive` and remain accessible when offline since they only read/write device configuration (cached in `deviceModel.config`).
 
@@ -361,15 +457,14 @@ Dynamic services created based on `config.shortcuts` configuration.
 
 ```javascript
 // Playback control
-await deviceModel.sendCommand({ action: 'play' })
-await deviceModel.sendCommand({ action: 'pause' })
-await deviceModel.sendCommand({ action: 'stop' })
+await deviceModel.resumeCard()
+await deviceModel.pauseCard()
 
 // Volume control
-await deviceModel.sendCommand({ action: 'volume', volume: 10 })
+await deviceModel.setVolume(10)
 
 // Sleep timer
-await deviceModel.sendCommand({ action: 'sleep-timer', minutes: 30 })
+await deviceModel.setSleepTimer(30 * 60)
 ```
 
 ### Config Update Examples
@@ -380,11 +475,11 @@ await deviceModel.updateConfig({ ambientColour: '0xff5733' })
 await deviceModel.updateConfig({ nightAmbientColour: '0x3366ff' })
 
 // Volume limits
-await deviceModel.updateConfig({ maxVolumeLimit: '12' })
-await deviceModel.updateConfig({ nightMaxVolumeLimit: '8' })
+await deviceModel.updateConfig({ maxVolumeLimit: 12 })
+await deviceModel.updateConfig({ nightMaxVolumeLimit: 8 })
 
 // Bluetooth
-await deviceModel.updateConfig({ bluetoothEnabled: '1' })
+await deviceModel.updateConfig({ bluetoothEnabled: true })
 ```
 
 ---
@@ -393,8 +488,9 @@ await deviceModel.updateConfig({ bluetoothEnabled: '1' })
 
 ### Basic Functionality
 - [ ] Device discovery and accessory creation
-- [ ] Playback control (play/pause/stop)
-- [ ] Volume control (0-16 range)
+- [ ] Playback control (bridged + external)
+- [ ] Volume control (bridged + external)
+- [ ] External SmartSpeaker pairing (when enabled)
 - [ ] Battery status updates
 - [ ] Online/offline detection
 - [ ] Firmware version display
@@ -405,7 +501,9 @@ await deviceModel.updateConfig({ bluetoothEnabled: '1' })
 - [ ] Nightlight brightness control (v3 only)
 - [ ] Nightlight status sensors (v3 only)
 - [ ] Card slot detection (all devices)
-- [ ] Night mode detection (all devices)
+- [ ] Card control switches (per device)
+- [ ] Card control (All Yotos) accessory
+- [ ] Day mode detection (all devices)
 - [ ] Sleep timer control (all devices)
 - [ ] Bluetooth toggle (all devices)
 - [ ] Volume limit controls (all devices)
@@ -419,7 +517,7 @@ await deviceModel.updateConfig({ bluetoothEnabled: '1' })
 
 ### Automations
 - [ ] Trigger on card insertion
-- [ ] Trigger on night mode change
+- [ ] Trigger on day mode change
 - [ ] Trigger on nightlight activation
 - [ ] Volume limit changes based on time
 - [ ] Sleep timer activation

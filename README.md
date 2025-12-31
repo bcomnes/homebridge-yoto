@@ -34,6 +34,10 @@ Homebridge plugin that exposes Yoto players to HomeKit with optional playback co
 - **External Smart Speaker**: Publishes a separate Smart Speaker accessory for playback and volume. Requires pairing the extra accessory in the Home app.
 - **None**: Disables playback and volume services entirely.
 
+**Card Controls** (`services.cardControls`)
+- Adds a per-device switch that plays the configured card ID.
+- Optional "Play on All Yotos" accessory per card control.
+
 **Service toggles**
 - **Temperature Sensor**: Adds a temperature sensor when supported by the device.
 - **Nightlight**: Adds day/night nightlight controls and status sensors.
@@ -51,6 +55,10 @@ Homebridge plugin that exposes Yoto players to HomeKit with optional playback co
 
 **Smart Speaker (external)**
 - **Smart Speaker**: Current/Target Media State, Volume, Mute, and StatusActive (online state).
+
+**Card Controls**
+- **Card Control**: Switch on each device that plays the configured card ID.
+- **Card Control (All Yotos)**: Optional switch accessory that plays the card on every Yoto.
 
 **Device status**
 - **Online Status**: Contact sensor; Contact Not Detected = online.
