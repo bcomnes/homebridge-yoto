@@ -49,17 +49,17 @@
         "title": "Accessory Services",
         "type": "object",
         "properties": {
-          "playback": {
-            "title": "Playback",
-            "type": "boolean",
-            "default": true,
-            "description": "Expose a playback switch."
-          },
-          "volume": {
-            "title": "Volume",
-            "type": "boolean",
-            "default": true,
-            "description": "Expose volume controls."
+          "playbackAccessory": {
+            "title": "Playback Controls",
+            "type": "string",
+            "default": "none",
+            "enum": ["bridged", "external", "none"],
+            "enumNames": [
+              "Bridged (Switch + Dimmer)",
+              "External Smart Speaker",
+              "None"
+            ],
+            "description": "Choose how playback and volume controls are exposed. External Smart Speaker requires additional pairing steps and appears as a separate accessory."
           },
           "temperature": {
             "title": "Temperature Sensor",
@@ -133,8 +133,11 @@
           "type": "help",
           "helpvalue": "<p>Select which HomeKit services to expose for each Yoto device.</p>"
         },
-        "services.playback",
-        "services.volume",
+        {
+          "type": "help",
+          "helpvalue": "<p><strong>Playback Controls:</strong> External Smart Speaker requires additional pairing steps in the Home app and will appear as a separate accessory.</p>"
+        },
+        "services.playbackAccessory",
         "services.temperature",
         "services.nightlight",
         "services.cardSlot",
