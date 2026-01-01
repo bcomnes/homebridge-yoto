@@ -61,6 +61,12 @@
             ],
             "description": "Choose how playback and volume controls are exposed. External Smart Speaker requires additional pairing steps and appears as a separate accessory."
           },
+          "battery": {
+            "title": "Battery",
+            "type": "boolean",
+            "default": true,
+            "description": "Expose battery status service."
+          },
           "temperature": {
             "title": "Temperature Sensor",
             "type": "boolean",
@@ -167,6 +173,7 @@
           "helpvalue": "<p><strong>Playback Controls:</strong> External Smart Speaker requires additional pairing steps in the Home app and will appear as a separate accessory.</p>"
         },
         "services.playbackAccessory",
+        "services.battery",
         "services.temperature",
         "services.nightlight",
         "services.cardSlot",
