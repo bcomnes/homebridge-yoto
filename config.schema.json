@@ -161,8 +161,6 @@
     {
       "type": "section",
       "title": "Accessory Services",
-      "expandable": true,
-      "expanded": false,
       "items": [
         {
           "type": "help",
@@ -173,10 +171,14 @@
           "helpvalue": "<p><strong>Playback Controls:</strong> External Smart Speaker requires additional pairing steps in the Home app and will appear as a separate accessory.</p>"
         },
         "services.playbackAccessory",
+        "services.volumeLimits",
         "services.battery",
         "services.temperature",
-        "services.nightlight",
         "services.cardSlot",
+        "services.dayMode",
+        "services.nightlight",
+        "services.bluetooth",
+        "services.sleepTimer",
         {
           "type": "help",
           "helpvalue": "<p><strong>Card Controls:</strong> Add switches that play a specific card ID on each Yoto. Enable \"Play on All Yotos\" to create a separate accessory.</p>"
@@ -190,11 +192,7 @@
             "services.cardControls[].cardId",
             "services.cardControls[].playOnAll"
           ]
-        },
-        "services.dayMode",
-        "services.sleepTimer",
-        "services.bluetooth",
-        "services.volumeLimits"
+        }
       ]
     }
   ]
