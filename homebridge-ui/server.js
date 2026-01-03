@@ -95,9 +95,18 @@ async function startDeviceFlow (payload) {
     console.log('[Server] startDeviceFlow returning:', JSON.stringify(result, null, 2))
     return result
   } catch (error) {
+    const err = /** @type {any} */ (error)
+    const errorBody = err.jsonBody
+    const errorDescription = errorBody?.error_description
+    const errorText = err.textBody
+    const errorDetails = []
+    if (errorDescription) errorDetails.push(errorDescription)
+    if (errorText && errorText !== errorDescription) errorDetails.push(errorText)
+    const errorMessage = errorDetails.join(' - ') ||
+      (error instanceof Error ? error.message : 'Unknown error')
     console.error('[Server] startDeviceFlow error:', error)
     throw new RequestError('Failed to start device flow', {
-      message: error instanceof Error ? error.message : 'Unknown error'
+      message: errorMessage
     })
   }
 }
@@ -213,8 +222,10 @@ async function pollForToken (payload) {
   } catch (error) {
     // Handle errors from pollForDeviceToken
     const err = /** @type {any} */ (error)
-    const errorCode = err.body?.error
-    const errorDescription = err.body?.error_description
+    const errorBody = err.jsonBody
+    const errorCode = errorBody?.error
+    const errorDescription = errorBody?.error_description
+    const errorText = err.textBody
 
     if (errorCode === 'expired_token') {
       console.error('[Server] Device code expired')
@@ -234,7 +245,14 @@ async function pollForToken (payload) {
     console.error('[Server] Unexpected error during token poll:', error)
     console.error('[Server] Error code:', errorCode)
     console.error('[Server] Error description:', errorDescription)
-    const errorMessage = errorDescription || (error instanceof Error ? error.message : String(error))
+    if (errorText) {
+      console.error('[Server] Error body:', errorText)
+    }
+    const errorDetails = []
+    if (errorDescription) errorDetails.push(errorDescription)
+    if (errorText && errorText !== errorDescription) errorDetails.push(errorText)
+    const errorMessage = errorDetails.join(' - ') ||
+      (error instanceof Error ? error.message : String(error))
     throw new RequestError('Token exchange failed', {
       message: errorMessage || 'Unknown error occurred'
     })
