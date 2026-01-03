@@ -49,17 +49,17 @@
         "title": "Accessory Services",
         "type": "object",
         "properties": {
-          "playbackAccessory": {
+          "playbackControls": {
             "title": "Playback Controls",
-            "type": "string",
-            "default": "none",
-            "enum": ["bridged", "external", "none"],
-            "enumNames": [
-              "Bridged (Switch + Dimmer)",
-              "External Smart Speaker",
-              "None"
-            ],
-            "description": "Choose how playback and volume controls are exposed. External Smart Speaker requires additional pairing steps and appears as a separate accessory."
+            "type": "boolean",
+            "default": false,
+            "description": "Expose bridged playback switch and volume dimmer controls."
+          },
+          "smartSpeaker": {
+            "title": "External Smart Speaker",
+            "type": "boolean",
+            "default": false,
+            "description": "Publish an external Smart Speaker accessory for playback and volume controls. Requires additional pairing steps and appears as a separate accessory."
           },
           "battery": {
             "title": "Battery",
@@ -168,9 +168,10 @@
         },
         {
           "type": "help",
-          "helpvalue": "<p><strong>Playback Controls:</strong> External Smart Speaker requires additional pairing steps in the Home app and will appear as a separate accessory.</p>"
+          "helpvalue": "<p><strong>Playback Controls:</strong> Enable a bridged switch + dimmer for play/pause and volume. <strong>External Smart Speaker:</strong> publishes a separate accessory and requires additional pairing steps in the Home app.</p>"
         },
-        "services.playbackAccessory",
+        "services.playbackControls",
+        "services.smartSpeaker",
         "services.volumeLimits",
         "services.battery",
         "services.temperature",
