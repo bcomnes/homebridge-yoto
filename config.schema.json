@@ -61,6 +61,12 @@
             "default": false,
             "description": "Publish an external Smart Speaker accessory for playback and volume controls. Requires additional pairing steps and appears as a separate accessory."
           },
+          "television": {
+            "title": "TV Playback Accessory",
+            "type": "boolean",
+            "default": false,
+            "description": "Publish an external playback accessory using the TV service with input and speaker controls. Requires additional pairing steps and appears as a separate accessory."
+          },
           "battery": {
             "title": "Battery",
             "type": "boolean",
@@ -168,10 +174,11 @@
         },
         {
           "type": "help",
-          "helpvalue": "<p><strong>Playback Controls:</strong> Enable a bridged switch + dimmer for play/pause and volume. <strong>External Smart Speaker:</strong> publishes a separate accessory and requires additional pairing steps in the Home app.</p>"
+          "helpvalue": "<p><strong>Playback Controls:</strong> Enable a bridged switch + dimmer for play/pause and volume. <strong>External Smart Speaker:</strong> publishes a separate accessory and requires additional pairing steps in the Home app. <strong>TV Playback Accessory:</strong> publishes an external playback accessory with input and speaker controls.</p>"
         },
         "services.playbackControls",
         "services.smartSpeaker",
+        "services.television",
         "services.volumeLimits",
         "services.battery",
         "services.temperature",
