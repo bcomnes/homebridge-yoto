@@ -38,7 +38,7 @@ importers:
         version: 7.0.2(@types/node@25.0.3)
       homebridge:
         specifier: ^2.0.0-beta.66
-        version: 2.0.0-beta.68
+        version: 2.0.0-beta.69
       neostandard:
         specifier: ^0.12.0
         version: 0.12.2(@typescript-eslint/utils@8.50.1(eslint@9.39.2)(typescript@5.9.3))(eslint@9.39.2)(typescript@5.9.3)
@@ -186,27 +186,27 @@ packages:
   '@leichtgewicht/ip-codec@2.0.5':
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
 
-  '@matter/general@0.16.0-alpha.0-20251228-8b11eb535':
-    resolution: {integrity: sha512-zoPT4LAutfbskFCKiKmQYumqLVTNBWf2NCP+hFWLPkh+yOhxe49GcMYe+JGc8BJTKLjlHn/Nlamv36Ok7jxzjQ==}
+  '@matter/general@0.16.7':
+    resolution: {integrity: sha512-b2JzhArkGm01vx/8NMo8KDAuffg0zeEcljW0bL2lWXcNiG/bFo/qDwrttZXO2igtej8OlA3yRih0DWX32SQkIQ==}
 
-  '@matter/main@0.16.0-alpha.0-20251228-8b11eb535':
-    resolution: {integrity: sha512-Db450KfkFwVoJ3is30ZuRlMdjyMK9AL012h4WSS7ABFMJGR+AT7dVHWPVpeN9ndiY8/DOwrfpACqZjIUCvgJcA==}
+  '@matter/main@0.16.7':
+    resolution: {integrity: sha512-qRamX7AQyDqBOPchM1d0ghjXcUyxcuMJjfsJN+ob7DtHpdQcZ0rTR6uSfuf2AFB2IzV5HSIrCSeraG4AEFcloA==}
 
-  '@matter/model@0.16.0-alpha.0-20251228-8b11eb535':
-    resolution: {integrity: sha512-w5DcVF6AIxNaexLhQsay3vH+tYfjUSD3K1pbR6Zpdijjq/al/smkR6scBnte6iUWLcTg6eb9wF4kN02e3ZJP7A==}
+  '@matter/model@0.16.7':
+    resolution: {integrity: sha512-zjsKz9DX39IVXOydoibyh4RIHVed+fkBSJ/m7VhIchbsHdiPjx2n3b4vuexDh/ToPkOVePRuKjKW8QluhgPk6Q==}
 
-  '@matter/node@0.16.0-alpha.0-20251228-8b11eb535':
-    resolution: {integrity: sha512-IleJKZlFzetaHQzDBdte1yja2oS/bT8ESqDo2dcBRvJSaYYkLjTN+awAstsSDpyKKPSsv84iJtcok1oVC1jJ0w==}
+  '@matter/node@0.16.7':
+    resolution: {integrity: sha512-qM7NN1RvyvaNE6BC0ZrqpOdrzINJLTojDdkYT3BQcH4q+qE3CvnYlm+IeZa4vDOxC9FViUJ1tx7LQajWoVFBXA==}
 
-  '@matter/nodejs@0.16.0-alpha.0-20251228-8b11eb535':
-    resolution: {integrity: sha512-n0b6iJea3nsLYAJBhC/6GIjU8KopShVAug0ppa6YkHnOJOxVCyIH6jWTIjS83rPKde+7rBPcPqgn3DrxWSwJlw==}
+  '@matter/nodejs@0.16.7':
+    resolution: {integrity: sha512-fL5i9Cxga6JqFj7+dpc6dfWh2XvYvsVD9VLxe1wUuBD58vxQ6lXqx9RbUebbDJ5BqhLgZNcnpJQgEI4ziV1Bww==}
     engines: {node: '>=20.19.0 <22.0.0 || >=22.13.0'}
 
-  '@matter/protocol@0.16.0-alpha.0-20251228-8b11eb535':
-    resolution: {integrity: sha512-au//onyIrCJbHXQwB414BQErDypW6dZ5U2iNufwgGtmxZ1DTTGMB4MA8DKC0betaW+VpZJ9jy+wf1kqqdCOQCQ==}
+  '@matter/protocol@0.16.7':
+    resolution: {integrity: sha512-wPBug0Yr401Mw7l6WYb3Kw/Uvwl68Sky6nVcWwaPMZtFepd7+uDpJ2SLyvuCpRsv0T8+O/VhN0y1FNybJxiivA==}
 
-  '@matter/types@0.16.0-alpha.0-20251228-8b11eb535':
-    resolution: {integrity: sha512-ihsQEYvshH/2t5OgMrCiUfUZBGvaFPP27maF/LSCkOpcwHEOl1dICHvaO5nsFEr27cBuvTyrx7+ycl4mZsWANg==}
+  '@matter/types@0.16.7':
+    resolution: {integrity: sha512-eQrzYJOzdFy8gwA9cp+wsDHfc6q5iuAHf3Ir4xSkxp+zR75xIYYyavCPVncT4f3Su4nxikz6EXblIgPXUUP01g==}
 
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
@@ -1282,8 +1282,8 @@ packages:
     engines: {node: '>=10.4'}
     hasBin: true
 
-  homebridge@2.0.0-beta.68:
-    resolution: {integrity: sha512-nsCSZaJ+hqcpUQ94Rnx3nhiTxUZf8IuPBCx1UYwedMq2qssD1G7QtBbu4TUUAtSKN+tyMvKzlf4zA+SNz0rKqA==}
+  homebridge@2.0.0-beta.69:
+    resolution: {integrity: sha512-ie2SXbHeeyNc0G+MPi7c4GrB4wk0F8XhliaueOINP0kuuBZRcbGtRZ7KsrklgOxXZdvcBULLilWOOzPZY7wD+g==}
     engines: {node: ^20.7.0 || ^22 || ^24}
     hasBin: true
 
@@ -2065,8 +2065,9 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  sax@1.4.3:
-    resolution: {integrity: sha512-yqYn1JhPczigF94DMS+shiDMjDowYO6y9+wB/4WgO0Y19jWYk0lQ4tuG5KI7kj4FTp1wxPj5IFfcrz/s1c3jjQ==}
+  sax@1.4.4:
+    resolution: {integrity: sha512-1n3r/tGXO6b6VXMdFT54SHzT9ytu9yr7TaELowdYpMqY/Ao7EnlQGmAQ1+RatX7Tkkdm6hONI2owqNx2aZj5Sw==}
+    engines: {node: '>=11.0.0'}
 
   semver-diff@3.1.1:
     resolution: {integrity: sha512-GX0Ix/CJcHyB8c4ykpHGIAvLyOwOobtM/8d+TQkAd81/bEjgPHrfba41Vpesr7jX/t8Uh+R3EX9eAS5be+jQYg==}
@@ -2421,6 +2422,10 @@ packages:
     resolution: {integrity: sha512-rEvr90Bck4WZt9HHFC4DJMsjvu7x+r6bImz0/BrbWb7A2djJ8hnZMrWnHo9F8ssv0OMErasDhftrfROTyqSDrw==}
     engines: {node: '>= 0.4'}
 
+  which-typed-array@1.1.20:
+    resolution: {integrity: sha512-LYfpUkmqwl0h9A2HL09Mms427Q1RZWuOHsukfVcKRq9q95iQxdw0ix1JQrqbcDR9PH1QDwf5Qo8OZb5lksZ8Xg==}
+    engines: {node: '>= 0.4'}
+
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
@@ -2687,49 +2692,49 @@ snapshots:
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 
-  '@matter/general@0.16.0-alpha.0-20251228-8b11eb535':
+  '@matter/general@0.16.7':
     dependencies:
       '@noble/curves': 2.0.1
 
-  '@matter/main@0.16.0-alpha.0-20251228-8b11eb535':
+  '@matter/main@0.16.7':
     dependencies:
-      '@matter/general': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/model': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/node': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/protocol': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/types': 0.16.0-alpha.0-20251228-8b11eb535
+      '@matter/general': 0.16.7
+      '@matter/model': 0.16.7
+      '@matter/node': 0.16.7
+      '@matter/protocol': 0.16.7
+      '@matter/types': 0.16.7
     optionalDependencies:
-      '@matter/nodejs': 0.16.0-alpha.0-20251228-8b11eb535
+      '@matter/nodejs': 0.16.7
 
-  '@matter/model@0.16.0-alpha.0-20251228-8b11eb535':
+  '@matter/model@0.16.7':
     dependencies:
-      '@matter/general': 0.16.0-alpha.0-20251228-8b11eb535
+      '@matter/general': 0.16.7
 
-  '@matter/node@0.16.0-alpha.0-20251228-8b11eb535':
+  '@matter/node@0.16.7':
     dependencies:
-      '@matter/general': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/model': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/protocol': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/types': 0.16.0-alpha.0-20251228-8b11eb535
+      '@matter/general': 0.16.7
+      '@matter/model': 0.16.7
+      '@matter/protocol': 0.16.7
+      '@matter/types': 0.16.7
 
-  '@matter/nodejs@0.16.0-alpha.0-20251228-8b11eb535':
+  '@matter/nodejs@0.16.7':
     dependencies:
-      '@matter/general': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/node': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/protocol': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/types': 0.16.0-alpha.0-20251228-8b11eb535
+      '@matter/general': 0.16.7
+      '@matter/node': 0.16.7
+      '@matter/protocol': 0.16.7
+      '@matter/types': 0.16.7
     optional: true
 
-  '@matter/protocol@0.16.0-alpha.0-20251228-8b11eb535':
+  '@matter/protocol@0.16.7':
     dependencies:
-      '@matter/general': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/model': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/types': 0.16.0-alpha.0-20251228-8b11eb535
+      '@matter/general': 0.16.7
+      '@matter/model': 0.16.7
+      '@matter/types': 0.16.7
 
-  '@matter/types@0.16.0-alpha.0-20251228-8b11eb535':
+  '@matter/types@0.16.7':
     dependencies:
-      '@matter/general': 0.16.0-alpha.0-20251228-8b11eb535
-      '@matter/model': 0.16.0-alpha.0-20251228-8b11eb535
+      '@matter/general': 0.16.7
+      '@matter/model': 0.16.7
 
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:
@@ -3430,7 +3435,7 @@ snapshots:
       side-channel: 1.1.0
       which-boxed-primitive: 1.1.1
       which-collection: 1.0.2
-      which-typed-array: 1.1.19
+      which-typed-array: 1.1.20
 
   deep-extend@0.6.0: {}
 
@@ -4063,10 +4068,10 @@ snapshots:
 
   hexy@0.3.5: {}
 
-  homebridge@2.0.0-beta.68:
+  homebridge@2.0.0-beta.69:
     dependencies:
       '@homebridge/hap-nodejs': 2.0.3-beta.0
-      '@matter/main': 0.16.0-alpha.0-20251228-8b11eb535
+      '@matter/main': 0.16.7
       chalk: 5.6.2
       commander: 14.0.2
       fs-extra: 11.3.3
@@ -4894,7 +4899,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sax@1.4.3: {}
+  sax@1.4.4: {}
 
   semver-diff@3.1.1:
     dependencies:
@@ -5344,6 +5349,16 @@ snapshots:
       gopd: 1.2.0
       has-tostringtag: 1.0.2
 
+  which-typed-array@1.1.20:
+    dependencies:
+      available-typed-arrays: 1.0.7
+      call-bind: 1.0.8
+      call-bound: 1.0.4
+      for-each: 0.3.5
+      get-proto: 1.0.1
+      gopd: 1.2.0
+      has-tostringtag: 1.0.2
+
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
@@ -5433,7 +5448,7 @@ snapshots:
 
   xml2js@0.6.2:
     dependencies:
-      sax: 1.4.3
+      sax: 1.4.4
       xmlbuilder: 11.0.1
 
   xmlbuilder@11.0.1: {}
